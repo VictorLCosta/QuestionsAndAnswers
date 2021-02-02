@@ -1,0 +1,23 @@
+{
+  "name": "questionsandanswers",
+  "version": "1.0.0",
+  "description": "Web application made in Node JS and Express with the purpose of being a question and answer platform among users.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VictorLCosta/QuestionsAndAnswers.git"
+  },
+  "author": "Victor Lima Costa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VictorLCosta/QuestionsAndAnswers/issues"
+  },
+  "homepage": "https://github.com/VictorLCosta/QuestionsAndAnswers#readme",
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1"
+  }
+}
