@@ -34,7 +34,13 @@ app.post('/questions/new', (req, res) =>
 {
     var title = req.body.title;
     var desc = req.body.desc;
-    res.send('Formulário recebido! ' + title + ': ' + desc);
+    perguntaModel.create({
+        title: title,
+        desc: desc
+    })
+    .then(() => {
+        res.redirect('/');
+    });
 });
 
 app.listen(8080, (erro) =>

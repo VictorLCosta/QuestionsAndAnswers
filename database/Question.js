@@ -15,4 +15,6 @@ const Question = cnn.define('question',
 
 Question.sync({force: false}).then(() => {
     
-})
+});
+
+module.exports = Question;
