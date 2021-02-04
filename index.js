@@ -9,6 +9,11 @@ app.get('/:name?', (req, res) =>
     res.render('index');
 });
 
+app.get('/questions/new', (req, res) =>
+{
+    res.render('question');
+});
+
 app.listen(8080, (erro) =>
 {
     if(erro)
