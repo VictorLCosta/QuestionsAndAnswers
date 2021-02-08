@@ -43,10 +43,17 @@ app.get('/questions/:id', (req, res) =>
     }).then(question => {
         if(question != undefined)
         {
-            res.render('getQuestion', 
-            {
-                question: question
+            answerModel.findAll({
+                raw: true,
+                where: {questionId: question.id},
+                order: [['id', 'DESC']]
             })
+            .then(answers => {
+                res.render('getQuestion', {
+                    question: question,
+                    answers: answers
+                });
+            });
         }else
         {
             res.render('/')
