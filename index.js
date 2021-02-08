@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cnn = require('./database/context');
-const perguntaModel = require('./database/Question');
+const questionModel = require('./database/Question');
+const answerModel = require('./database/Answer');
 
 cnn.authenticate()
     .then(() => 
@@ -22,7 +23,7 @@ app.use(bodyParser.json())
 //rotas
 app.get('/', (req, res) => 
 {
-    perguntaModel.findAll({raw: true, order: [['id', 'DESC']]}).then(questions => {
+    questionModel.findAll({raw: true, order: [['id', 'DESC']]}).then(questions => {
         res.render('index', {
             questions: questions
         });
@@ -34,16 +35,49 @@ app.get('/questions', (req, res) =>
     res.render('question');
 });
 
+app.get('/questions/:id', (req, res) => 
+{
+    var id = req.params.id;
+    questionModel.findOne({
+        where: {id: id}
+    }).then(question => {
+        if(question != undefined)
+        {
+            res.render('getQuestion', 
+            {
+                question: question
+            })
+        }else
+        {
+            res.render('/')
+        }
+    });
+});
+
 app.post('/questions/new', (req, res) =>
 {
     var title = req.body.title;
     var desc = req.body.desc;
-    perguntaModel.create({
+    questionModel.create({
         title: title,
         desc: desc
     })
     .then(() => {
         res.redirect('/');
+    });
+});
+
+app.post('/answers/new', (req, res) =>
+{
+    var body = req.body.body;
+    var questionId = req.body.question;
+
+    answerModel.create({
+        body: body,
+        questionId: questionId
+    })
+    .then(() => {
+        res.redirect('/questions/' + questionId)
     });
 });
 
