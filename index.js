@@ -22,7 +22,7 @@ app.use(bodyParser.json())
 //rotas
 app.get('/', (req, res) => 
 {
-    perguntaModel.findAll({raw: true}).then(questions => {
+    perguntaModel.findAll({raw: true, order: [['id', 'DESC']]}).then(questions => {
         res.render('index', {
             questions: questions
         });
